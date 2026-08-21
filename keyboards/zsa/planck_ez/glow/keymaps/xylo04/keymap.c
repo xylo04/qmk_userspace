@@ -2,14 +2,6 @@
 #ifdef AUDIO_ENABLE
 #include "muse.h"
 #endif
-#include "eeprom.h"
-#ifndef ZSA_SAFE_RANGE
-#define ZSA_SAFE_RANGE SAFE_RANGE
-#endif
-
-enum custom_keycodes {
-  RGB_SLD = ZSA_SAFE_RANGE,
-};
 
 
 enum planck_layers {
@@ -48,8 +40,8 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
   [_ADJUST] = LAYOUT_planck_grid(
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, 
-    KC_DELETE,      KC_TRANSPARENT, QK_AUDIO_ON,    QK_AUDIO_OFF,   AU_TOGG,        KC_TRANSPARENT, KC_TRANSPARENT, RGB_TOG,        RGB_VAI,        RGB_VAD,        KC_TRANSPARENT, QK_BOOT,        
-    KC_TRANSPARENT, KC_TRANSPARENT, QK_MUSIC_ON,    QK_MUSIC_OFF,   MU_TOGG,        KC_TRANSPARENT, KC_TRANSPARENT, RGB_MODE_FORWARD,RGB_HUI,        RGB_HUD,        KC_TRANSPARENT, KC_TRANSPARENT, 
+    KC_DELETE,      KC_TRANSPARENT, QK_AUDIO_ON,    QK_AUDIO_OFF,   AU_TOGG,        KC_TRANSPARENT, KC_TRANSPARENT, RM_TOGG,        RM_VALU,        RM_VALD,        KC_TRANSPARENT, QK_BOOT,        
+    KC_TRANSPARENT, KC_TRANSPARENT, QK_MUSIC_ON,    QK_MUSIC_OFF,   MU_TOGG,        KC_TRANSPARENT, KC_TRANSPARENT, RM_NEXT,        RM_HUEU,        RM_HUED,        KC_TRANSPARENT, KC_TRANSPARENT, 
     KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_NO,          KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT, KC_TRANSPARENT
   ),
 
@@ -69,21 +61,6 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
 
 
-bool process_record_user(uint16_t keycode, keyrecord_t *record) {
-  switch (keycode) {
-
-    case RGB_SLD:
-        if (rawhid_state.rgb_control) {
-            return false;
-        }
-        if (record->event.pressed) {
-            rgblight_mode(1);
-        }
-        return false;
-  }
-  return true;
-}
-
 #ifdef AUDIO_ENABLE
 bool muse_mode = false;
 uint8_t last_muse_note = 0;
@@ -91,7 +68,7 @@ uint16_t muse_counter = 0;
 uint8_t muse_offset = 70;
 uint16_t muse_tempo = 50;
 
-void encoder_update(bool clockwise) {
+bool encoder_update_user(uint8_t index, bool clockwise) {
     if (muse_mode) {
         if (IS_LAYER_ON(_RAISE)) {
             if (clockwise) {
@@ -125,6 +102,7 @@ void encoder_update(bool clockwise) {
         #endif
         }
     }
+    return true;
 }
 
 void matrix_scan_user(void) {
@@ -154,7 +132,6 @@ bool music_mask_user(uint16_t keycode) {
 }
 #endif
 
-uint8_t layer_state_set_user(uint8_t state) {
+layer_state_t layer_state_set_user(layer_state_t state) {
     return update_tri_layer_state(state, _LOWER, _RAISE, _ADJUST);
 }
-

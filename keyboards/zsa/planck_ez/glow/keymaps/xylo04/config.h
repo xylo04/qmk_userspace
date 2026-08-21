@@ -1,7 +1,7 @@
 #pragma once
 
 #ifdef AUDIO_ENABLE
-#define STARTUP_SONG SONG(PLANCK_SOUND)
+#    define STARTUP_SONG SONG(PLANCK_SOUND)
 #endif
 
 #define MIDI_BASIC
@@ -13,4 +13,3 @@
 #define LAYER_STATE_8BIT
 
 #define RGB_MATRIX_STARTUP_SPD 60
-
