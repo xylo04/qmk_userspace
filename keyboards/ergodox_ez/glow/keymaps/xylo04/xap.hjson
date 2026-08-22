@@ -1,0 +1,44 @@
+{
+    routes: {
+        0x10: {
+            type: router
+            name: Host Color
+            define: HOST_COLOR
+            routes: {
+                0x01: {
+                    type: command
+                    name: Get Protocol Version
+                    define: GET_PROTOCOL_VERSION
+                    return_execute: host_color_get_protocol_version
+                }
+                0x02: {
+                    type: command
+                    name: Release
+                    define: RELEASE
+                    return_execute: host_color_release
+                }
+                0x03: {
+                    type: command
+                    name: Set All
+                    define: SET_ALL
+                    request_type: u8[3]
+                    return_execute: host_color_set_all
+                }
+                0x04: {
+                    type: command
+                    name: Set Array
+                    define: SET_ARRAY
+                    request_type: u8[56]
+                    return_execute: host_color_set_array
+                }
+                0x05: {
+                    type: command
+                    name: Set LED
+                    define: SET_LED
+                    request_type: u8[57]
+                    return_execute: host_color_set_led
+                }
+            }
+        }
+    }
+}
