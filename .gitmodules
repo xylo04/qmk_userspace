@@ -1,3 +1,6 @@
 [submodule "modules/drashna"]
 	path = modules/drashna
 	url = https://github.com/drashna/qmk_modules.git
+[submodule "modules/xylo04"]
+	path = modules/xylo04
+	url = https://github.com/xylo04/qmk_modules.git
