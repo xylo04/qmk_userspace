@@ -4,6 +4,8 @@ This is my personal QMK playground for experimenting with keymaps, features, and
 [main QMK repository](https://github.com/qmk/qmk_firmware). It contains the firmware configurations
 I use for my keyboards and may change whenever I find a new idea to try.
 
+**This branch currently requires the `qmk_firmware` `xap` branch.**
+
 ## Setup
 
 After completing the standard [`qmk setup`](https://docs.qmk.fm/#/newbs), clone this repository and
