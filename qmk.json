@@ -8,6 +8,10 @@
         [
             "zsa/planck_ez/glow",
             "xylo04"
+        ],
+        [
+            "drop/cstm80",
+            "xylo04"
         ]
     ]
 }
